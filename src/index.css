@@ -126,3 +126,11 @@
 body {
   font-family: "Pretandard";
 }
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}

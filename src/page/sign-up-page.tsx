@@ -1,37 +1,54 @@
-import { useState } from "react";
+import { Link } from "react-router";
+import { useSignUp } from "@/hooks/mutations/use-sign-up";
+import { generateErrorMessage } from "@/lib/error";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 export default function SignInPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleSignUpClick = () => {};
+  const {
+    signUpValue,
+    handleSignUpOnChange,
+    handleSignUpClick,
+    isSignUpPending,
+  } = useSignUp({
+    onError: (error) => {
+      const message = generateErrorMessage(error);
+      toast.error(message, {
+        position: "top-center",
+      });
+    },
+  });
 
   return (
     <>
-      <div className="pb-4 text-2xl font-bold">Sign up</div>
+      <div className="pb-4 text-2xl font-bold">회원가입</div>
       <div className="flex flex-col gap-2">
         <div className="text-md font-medium">Email</div>
         <Input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          id="email"
+          value={signUpValue.email}
+          onChange={handleSignUpOnChange}
           placeholder="example@abc.com"
+          disabled={isSignUpPending}
         />
         <div className="text-md font-medium">Password</div>
         <Input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          id="password"
+          type="password"
+          value={signUpValue.password}
+          onChange={handleSignUpOnChange}
           placeholder="password"
+          disabled={isSignUpPending}
         />
-        <Button className="mt-2" onClick={handleSignUpClick}>
+        <Button
+          className="mt-2"
+          onClick={handleSignUpClick}
+          disabled={isSignUpPending}
+        >
           회원가입
         </Button>
-        <Button variant={"outline"} onClick={() => navigate("/sign-in")}>
-          로그인
-        </Button>
+        <Link to="/sign-in">이미 계정이 있다면? 로그인</Link>
       </div>
     </>
   );
