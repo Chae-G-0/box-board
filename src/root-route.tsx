@@ -8,6 +8,7 @@ import SignUpPage from "./page/sign-up-page";
 import GlobalLayout from "./components/layout/global-layout";
 import RecordPage from "./page/record-page";
 import AuthLayout from "./components/layout/auth-layout";
+import MemberLayout from "./components/layout/member-layout";
 
 export default function RootRouter() {
   return (
@@ -18,12 +19,14 @@ export default function RootRouter() {
         <Route path="/sign-up" element={<SignUpPage />} />
       </Route>
 
-      <Route element={<GlobalLayout />}>
-        <Route path="/" element={<IndexPage />} />
-        <Route path="/wod" element={<TodayWodPage />} />
-        <Route path="/record" element={<RecordPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/notice" element={<NoticePage />} />
+      <Route element={<MemberLayout />}>
+        <Route element={<GlobalLayout />}>
+          <Route path="/" element={<IndexPage />} />
+          <Route path="/wod" element={<TodayWodPage />} />
+          <Route path="/record" element={<RecordPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/notice" element={<NoticePage />} />
+        </Route>
       </Route>
     </Routes>
   );
