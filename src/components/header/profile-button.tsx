@@ -2,10 +2,9 @@ import { Link } from "react-router";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { UserRound } from "lucide-react";
+import { signOutAPI } from "@/api/auth";
 
 export default function ProfileButton() {
-  const handleLogOutClick = () => {};
-
   const buttonStyle = `hover:bg-muted cursor-pointer px-4 py-3 text-sm`;
 
   return (
@@ -22,7 +21,7 @@ export default function ProfileButton() {
           </Link>
         </PopoverClose>
         <PopoverClose asChild>
-          <div onClick={handleLogOutClick} className={buttonStyle}>
+          <div onClick={signOutAPI} className={buttonStyle}>
             로그아웃
           </div>
         </PopoverClose>

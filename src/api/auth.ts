@@ -31,3 +31,13 @@ export async function signInAPI({
   if (error) throw error;
   return data;
 }
+
+export async function signOutAPI() {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    await supabase.auth.signOut({
+      scope: "local",
+    });
+  }
+}
